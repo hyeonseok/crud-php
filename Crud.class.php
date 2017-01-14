@@ -44,7 +44,7 @@ class Crud {
 		if (!$this->table_exists) {
 			return array();
 		}
-		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY time DESC WHERE ' . $column . ' LIKE :value')) {
+		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' LIKE :value ORDER BY time DESC')) {
 			$stmt->bindValue(':value', '%' . $value . '%', SQLITE3_TEXT);
 			$records = $stmt->execute();
 		} else {
@@ -61,7 +61,7 @@ class Crud {
 		if (!$this->table_exists) {
 			return array();
 		}
-		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY time DESC WHERE id = :id')) {
+		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :id ORDER BY time DESC')) {
 			$stmt->bindValue(':id', $id, SQLITE3_INTEGER);
 			$record = $stmt->execute();
 		} else {
