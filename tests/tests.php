@@ -69,6 +69,9 @@ tests(count($record), 1);
 echo('#12 ');
 tests($crud2->create(array('bar' => 'foo')), 2);
 
+echo('#13 ');
+$read_none_exist_table = new Crud('read_none_exist_table', $filename);
+tests($read_none_exist_table->read(), array());
+
 unlink($filename);
-exit();
 ?>

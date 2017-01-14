@@ -41,6 +41,9 @@ class Crud {
 	}
 
 	private function read_by_search($column, $value) {
+		if (!$this->table_exists) {
+			return array();
+		}
 		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' LIKE :value')) {
 			$stmt->bindValue(':value', '%' . $value . '%', SQLITE3_TEXT);
 			$records = $stmt->execute();
@@ -55,6 +58,9 @@ class Crud {
 	}
 
 	private function read_by_id($id) {
+		if (!$this->table_exists) {
+			return array();
+		}
 		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :id')) {
 			$stmt->bindValue(':id', $id, SQLITE3_INTEGER);
 			$record = $stmt->execute();
@@ -65,6 +71,9 @@ class Crud {
 	}
 
 	private function read_all() {
+		if (!$this->table_exists) {
+			return array();
+		}
 		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table)) {
 			$records = $stmt->execute();
 		} else {
