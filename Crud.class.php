@@ -120,6 +120,7 @@ class Crud {
 	}
 
 	public function update($id, $data) {
+		$this->add_column_if_not_exists(array_keys($data));
 		$colums = array();
 		foreach (array_keys($data) as $key) {
 			$colums[] = $key . ' = :' . $key;
@@ -133,6 +134,7 @@ class Crud {
 		} else {
 			die('Cound not update.' . PHP_EOL);
 		}
+		return true;
 	}
 
 	public function delete($id) {

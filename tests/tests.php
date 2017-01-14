@@ -73,5 +73,9 @@ echo('#13 ');
 $read_none_exist_table = new Crud('read_none_exist_table', $filename);
 tests($read_none_exist_table->read(), array());
 
+echo('#14 ');
+$update_none_exist_column = $crud->update(2, array('var3' => 'text3'));
+tests($update_none_exist_column, true);
+
 unlink($filename);
 ?>
