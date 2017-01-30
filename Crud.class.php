@@ -14,6 +14,9 @@ class Crud {
 	}
 
 	private function create_table($data) {
+		if (isset($data['time'])) {
+			unset($data['time']);
+		}
 		$keys = array_keys($data);
 		$keys_type_added = array_map(function($key) {
 			return $key . ' TEXT';
