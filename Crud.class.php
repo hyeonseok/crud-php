@@ -91,12 +91,15 @@ class Crud {
 			$this->create_table($data);
 		}
 		$this->add_column_if_not_exists(array_keys($data));
+		if (!isset($data['time'])) {
+			$data['time'] = time();
+		}
 		$keys = array_keys($data);
 		$keys_colon_added = array_map(function($key) {
 			return ':' . $key;
 		}, $keys);
 		$keys_imploded = implode(', ', $keys_colon_added);
-		if ($stmt = $this->db->prepare('INSERT INTO ' . $this->table . ' (time, ' . implode(', ', $keys) . ') VALUES (' . time() . ', ' . $keys_imploded . ')')) {
+		if ($stmt = $this->db->prepare('INSERT INTO ' . $this->table . ' (' . implode(', ', $keys) . ') VALUES (' . $keys_imploded . ')')) {
 			foreach ($data as $key => $value) {
 				$stmt->bindValue(':' . $key, $value, SQLITE3_TEXT);
 			}
@@ -121,11 +124,14 @@ class Crud {
 
 	public function update($id, $data) {
 		$this->add_column_if_not_exists(array_keys($data));
+		if (!isset($data['time'])) {
+			$data['time'] = time();
+		}
 		$colums = array();
 		foreach (array_keys($data) as $key) {
 			$colums[] = $key . ' = :' . $key;
 		}
-		if ($stmt = $this->db->prepare('UPDATE ' . $this->table . ' SET time = ' . time() . ', ' . implode(', ', $colums) . ' WHERE id = :id')) {
+		if ($stmt = $this->db->prepare('UPDATE ' . $this->table . ' SET ' . implode(', ', $colums) . ' WHERE id = :id')) {
 			$stmt->bindValue(':id', $id, SQLITE3_INTEGER);
 			foreach ($data as $key => $value) {
 				$stmt->bindValue(':' . $key, $value, SQLITE3_TEXT);
