@@ -44,12 +44,12 @@ class Crud {
 		}
 	}
 
-	private function read_by_search($column, $value) {
+	private function read_by_match($column, $value) {
 		if (!$this->table_exists) {
 			return array();
 		}
-		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' LIKE :value ORDER BY time DESC')) {
-			$stmt->bindValue(':value', '%' . $value . '%', SQLITE3_TEXT);
+		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $column . ' = :value ORDER BY time DESC')) {
+			$stmt->bindValue(':value', $value, SQLITE3_TEXT);
 			$records = $stmt->execute();
 		} else {
 			die('Cound not find.' . PHP_EOL);
@@ -117,7 +117,7 @@ class Crud {
 
 	public function read($arg1 = null, $arg2 = null) {
 		if ($arg2 != null) {
-			$result = $this->read_by_search($arg1, $arg2);
+			$result = $this->read_by_match($arg1, $arg2);
 		} else if ($arg1 != null) {
 			$result = $this->read_by_id($arg1);
 		} else {

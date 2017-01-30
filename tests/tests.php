@@ -64,7 +64,7 @@ tests(count($record), 1);
 
 echo('#11 ');
 $record = $crud->read('var1', 'te');
-tests(count($record), 1);
+tests(count($record), 0);
 
 echo('#12 ');
 tests($crud2->create(array('bar' => 'foo')), 2);
