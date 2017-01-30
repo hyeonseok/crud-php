@@ -74,7 +74,7 @@ class Crud {
 		if (!$this->table_exists) {
 			return array();
 		}
-		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY time DESC')) {
+		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' ORDER BY time DESC LIMIT 1000')) {
 			$records = $stmt->execute();
 		} else {
 			die('Cound not find.' . PHP_EOL);
