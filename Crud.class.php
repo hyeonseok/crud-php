@@ -23,6 +23,7 @@ class Crud {
 		}, $keys);
 		$keys_imploded = implode(', ', $keys_type_added);
 		$this->db->exec('CREATE TABLE ' . $this->table . ' (id INTEGER PRIMARY KEY, time INTEGER, ' . $keys_imploded . ')');
+		$this->db->exec('CREATE INDEX ' . $this->table . '_time_index ON ' . $this->table . ' (time)');
 		$this->table_exists = true;
 	}
 
