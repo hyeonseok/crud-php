@@ -65,7 +65,7 @@ class Crud {
 		if (!$this->table_exists) {
 			return array();
 		}
-		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :id ORDER BY time DESC')) {
+		if ($stmt = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = :id')) {
 			$stmt->bindValue(':id', $id, SQLITE3_INTEGER);
 			$record = $stmt->execute();
 		} else {
