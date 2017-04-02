@@ -2,7 +2,7 @@
 class Crud {
 	public function __construct($table, $filename = null) {
 		if ($filename === null) {
-			$filename = dirname(__FILE__) . '/Crud.sqlite3.db';
+			$filename = dirname(__FILE__) . '/.ht.sqlite3.db';
 		}
 		$this->db = new Sqlite3($filename);
 		$this->table = $table;
