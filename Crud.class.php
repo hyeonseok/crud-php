@@ -128,9 +128,6 @@ class Crud {
 
 	public function update($id, $data) {
 		$this->add_column_if_not_exists(array_keys($data));
-		if (!isset($data['time'])) {
-			$data['time'] = time();
-		}
 		$colums = array();
 		foreach (array_keys($data) as $key) {
 			$colums[] = $key . ' = :' . $key;
